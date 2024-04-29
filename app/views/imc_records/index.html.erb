@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de IMC</title>
+</head>
+<body>
+  <h1>Calculadora de IMC</h1>
+  <form id="imcForm">
+    <label for="weight">Peso (kg):</label>
+    <input type="number" id="weight" name="weight" step="0.01" required>
+    <br>
+    <label for="height">Altura (m):</label>
+    <input type="number" id="height" name="height" step="0.01" required>
+    <br>
+    <input type="submit" value="Calcular IMC">
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('imcForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value);
+
+      const bmi = weight / (height * height);
+      const category = evaluateBmiCategory(bmi);
+
+      document.getElementById('result').textContent = `Seu IMC é ${bmi.toFixed(2)} e você está na categoria: ${category}.`;
+    });
+
+    function evaluateBmiCategory(bmi) {
+      if (bmi < 18.5) {
+        return 'Abaixo do peso';
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        return 'Peso normal';
+      } else if (bmi >= 25 && bmi < 29.9) {
+        return 'Sobrepeso (Obesidade I)';
+      } else if (bmi >= 30 && bmi < 34.9) {
+        return 'Obesidade II';
+      } else {
+        return 'Obesidade III (Obesidade mórbida)';
+      }
+    }
+  </script>
+</body>
+</html>
